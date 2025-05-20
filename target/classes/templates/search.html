@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Buses</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <h2>🔍 Search for Buses</h2>
+
+    <form method="get" th:action="@{/search}">
+        <label>From</label>
+        <input type="text" name="from" required placeholder="Enter departure city">
+
+        <label>To</label>
+        <input type="text" name="to" required placeholder="Enter destination city">
+
+        <label>Travel Date</label>
+        <input type="date" name="travelDate" required th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+
+        <label>Max Price (optional)</label>
+        <input type="number" name="maxPrice" placeholder="e.g. 1000">
+
+        <label>Sort By</label>
+        <select name="sortBy">
+            <option value="price">Price</option>
+            <option value="departure">Departure Time</option>
+            <option value="arrival">Arrival Time</option>
+        </select>
+
+        <button type="submit">🔍 Search</button>
+    </form>
+
+    <div th:if="${buses}">
+        <h3>Search Results:</h3>
+
+        <div th:each="bus : ${buses}" class="bus-card">
+            <p>
+                <strong th:text="${bus.operatorName}">Bus Name</strong><br>
+                <span th:text="${bus.from}"></span> → <span th:text="${bus.to}"></span><br>
+                Departure: <span th:text="${bus.departureTime}"></span> |
+                Arrival: <span th:text="${bus.arrivalTime}"></span><br>
+                Seater ₹<span th:text="${bus.seaterPrice}">0</span>,
+                Sleeper ₹<span th:text="${bus.sleeperPrice}">0</span>
+            </p>
+            <a class="btn" th:href="@{/bus/{id}(id=${bus.id})}">View Details</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<style>
+    .bus-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 10px;
+        background: #fefefe;
+        box-shadow: var(--shadow);
+    }
+</style>
+
+</body>
+</html>

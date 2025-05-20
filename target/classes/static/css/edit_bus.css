@@ -1,0 +1,139 @@
+
+/* ✏️ Edit Bus Page - Beautiful, Responsive, Animated CSS */
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --background: #f0f4f8;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --text: #1f2937;
+    --accent: #f59e0b;
+    --radius: 10px;
+    --shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    --transition: 0.3s ease;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--font);
+}
+
+body {
+    background-color: var(--background);
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    animation: fadeIn 0.6s ease;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    animation: slideIn 0.7s ease-out;
+}
+
+h2 {
+    font-size: 28px;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-top: 15px;
+    color: var(--gray);
+}
+
+input[type="text"],
+input[type="time"],
+input[type="number"],
+input[type="file"] {
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    background: #f9fafb;
+    transition: var(--transition);
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+}
+
+fieldset {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f1f5f9;
+    border-radius: var(--radius);
+    border: 1px solid #e2e8f0;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--primary-dark);
+    padding: 0 8px;
+}
+
+fieldset label {
+    margin-right: 20px;
+    display: inline-block;
+    margin-top: 10px;
+    color: #334155;
+}
+
+button[type="submit"] {
+    margin-top: 30px;
+    padding: 14px;
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 14px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input, button {
+        font-size: 15px;
+    }
+}

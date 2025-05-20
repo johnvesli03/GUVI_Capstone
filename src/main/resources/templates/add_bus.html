@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Bus</title>
+    <link rel="stylesheet" href="/css/add_bus.css">
+</head>
+<body>
+
+<!-- Shared navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <h2>➕ Add New Bus</h2>
+
+    <form th:action="@{/admin/add}" method="post" th:object="${bus}" onsubmit="return calculateTotalSeats()" enctype="multipart/form-data">
+        <label>Operator Name</label>
+        <input type="text" th:field="*{operatorName}" required>
+
+        <label>From</label>
+        <input type="text" th:field="*{from}" required>
+
+        <label>To</label>
+        <input type="text" th:field="*{to}" required>
+
+        <label>Departure Time</label>
+        <input type="time" th:field="*{departureTime}" required>
+
+        <label>Arrival Time</label>
+        <input type="time" th:field="*{arrivalTime}" required>
+
+        <label>Seater Price</label>
+        <input type="number" th:field="*{seaterPrice}" step="0.01" required>
+
+        <label>Sleeper Price</label>
+        <input type="number" th:field="*{sleeperPrice}" step="0.01" required>
+
+        <label>Seater Seats</label>
+        <input type="number" th:field="*{seaterCount}" id="seaterCount" required>
+
+        <label>Sleeper Seats</label>
+        <input type="number" th:field="*{sleeperCount}" id="sleeperCount" required>
+
+        <label>Total Seats</label>
+        <input type="number" th:field="*{totalSeats}" id="totalSeats" readonly>
+
+        <label>Upload Bus Image</label>
+        <input type="file" name="busImage" accept="image/*">
+
+        <fieldset>
+            <legend>Select Amenities</legend>
+            <label><input type="checkbox" name="amenities" value="WiFi"> WiFi</label>
+            <label><input type="checkbox" name="amenities" value="Charging"> Charging</label>
+            <label><input type="checkbox" name="amenities" value="AC"> AC</label>
+            <label><input type="checkbox" name="amenities" value="Blanket"> Blanket</label>
+        </fieldset>
+
+        <p><strong>Total Seats:</strong> <span id="seatTotalDisplay">0</span></p>
+
+        <button type="submit">➕ Add Bus</button>
+    </form>
+</div>
+
+<!-- Shared footer -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<script>
+    function calculateTotalSeats() {
+        const seater = parseInt(document.getElementById('seaterCount').value) || 0;
+        const sleeper = parseInt(document.getElementById('sleeperCount').value) || 0;
+        const total = seater + sleeper;
+
+        document.getElementById('totalSeats').value = total;
+        document.getElementById('seatTotalDisplay').innerText = total;
+        return true;
+    }
+    document.getElementById('seaterCount').addEventListener('input', calculateTotalSeats);
+    document.getElementById('sleeperCount').addEventListener('input', calculateTotalSeats);
+</script>
+
+</body>
+</html>

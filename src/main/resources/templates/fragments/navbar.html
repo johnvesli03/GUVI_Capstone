@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/css/navbar.css">
+<body>
+<nav th:fragment="navbar" class="navbar">
+
+    <!-- Admin Dashboard -->
+    <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/dashboard}">🏠 Dashboard</a>
+
+    <!-- User Dashboard -->
+    <a th:if="${#authorization.expression('hasRole(''USER'')')}" th:href="@{/dashboard}">🏠 Dashboard</a>
+
+    <!-- Shared -->
+    <a th:href="@{/profile}">👤 Profile</a>
+
+    <!-- User-only Links -->
+    <a th:if="${#authorization.expression('hasRole(''USER'')')}" th:href="@{/search}">🚌 Search</a>
+    <a th:if="${#authorization.expression('hasRole(''USER'')')}" th:href="@{/history}">📄 History</a>
+
+    <!-- Admin-only Links -->
+    <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin/dashboard}">🛠 Admin Panel</a>
+        <a th:href="@{/admin/bookings}">📋 Bookings</a>
+    </span>
+
+    <a th:href="@{/logout}">🚪 Logout</a>
+</nav>
+
+<hr/>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bus Details</title>
+    <link rel="stylesheet" href="/css/bus_details.css">
+    <style>
+        .seat-layout {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .seat {
+            width: 40px;
+            height: 40px;
+            background-color: #eee;
+            border: 2px solid #333;
+            border-radius: 6px;
+            text-align: center;
+            line-height: 38px;
+            cursor: pointer;
+        }
+        .seat.selected {
+            background-color: #3a9;
+            color: white;
+        }
+        .seat.booked {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        .sleeper-layout {
+            grid-template-columns: repeat(2, 80px);
+        }
+        .amenities {
+            margin-top: 15px;
+        }
+        .amenities span {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #e1f5fe;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body th:data-seater="${bus.seaterCount}" th:data-sleeper="${bus.sleeperCount}">
+
+<div class="container">
+    <h2 th:text="${bus.operatorName}">Bus Operator</h2>
+    <p>
+        <strong>Route:</strong> <span th:text="${bus.from}"></span> → <span th:text="${bus.to}"></span><br>
+        <strong>Departure:</strong> <span th:text="${bus.departureTime}"></span><br>
+        <strong>Arrival:</strong> <span th:text="${bus.arrivalTime}"></span><br>
+        <strong>Seater Price:</strong> ₹<span th:text="${bus.seaterPrice}"></span><br>
+        <strong>Sleeper Price:</strong> ₹<span th:text="${bus.sleeperPrice}"></span><br>
+    </p>
+
+    <div class="amenities">
+        <strong>Amenities:</strong>
+        <span>WiFi</span>
+        <span>Charging</span>
+        <span>Blanket</span>
+        <span>Water Bottle</span>
+    </div>
+
+    <form th:action="@{/book/{id}(id=${bus.id})}" method="post" id="bookingForm">
+        <h3>Travel Date</h3>
+        <input type="date" name="travelDate" id="travelDateInput" required
+               th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"><br>
+
+        <label>Coupon Code (Optional)</label>
+        <input type="text" name="couponCode" placeholder="Enter promo code">
+
+        <div id="passengerSection" style="display:none;">
+            <h3>Passenger Info</h3>
+            <div id="passengerContainer"></div>
+
+            <button type="button" id="addPassenger">+ Add Passenger</button>
+            <button type="button" onclick="initiatePayment()">Pay & Book</button>
+        </div>
+    </form>
+</div>
+
+<script th:inline="javascript">
+    const busId = /*[[${bus.id}]]*/ "";
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>

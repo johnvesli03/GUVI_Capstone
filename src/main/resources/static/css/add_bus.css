@@ -1,0 +1,123 @@
+/* General Layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e3f2fd, #ffffff);
+    color: #2c3e50;
+}
+
+.container {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #0072ff;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, #0072ff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input[type="text"],
+input[type="time"],
+input[type="number"],
+input[type="file"],
+select {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    transition: border 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+}
+
+input:focus {
+    border-color: #00c6ff;
+    box-shadow: 0 0 6px rgba(0, 198, 255, 0.3);
+    outline: none;
+}
+
+/* Readonly input */
+input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Fieldset Amenities */
+fieldset {
+    padding: 15px 20px;
+    border: 2px solid #dcdde1;
+    border-radius: 10px;
+    background: #f6f9fc;
+}
+
+legend {
+    padding: 0 10px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+fieldset label {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+/* Seat Total */
+#seatTotalDisplay {
+    font-weight: bold;
+    color: #2d3436;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    input,
+    button {
+        font-size: 1rem;
+    }
+}

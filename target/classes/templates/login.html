@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <style>
+        .password-toggle {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .social-login {
+            margin-top: 15px;
+        }
+        .social-login button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <label>Email</label>
+        <input type="email" name="username" class="form-control" required>
+
+        <label>Password</label>
+        <div style="display: flex; align-items: center;">
+            <input type="password" name="password" class="form-control" id="passwordInput" required>
+            <span class="password-toggle" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <label><input type="checkbox" name="remember"> Remember Me</label>
+
+        <button type="submit" class="btn btn-success">Login</button>
+        <p>New user? <a th:href="@{/register}">Register</a></p>
+
+        <div class="social-login">
+            <button type="button">🔒 Login with Google</button>
+            <button type="button">🔒 Login with Facebook</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function togglePassword() {
+        const pwd = document.getElementById("passwordInput");
+        pwd.type = pwd.type === "password" ? "text" : "password";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking History</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/history.css">
+</head>
+
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <h2>🧾 Booking History</h2>
+
+    <div th:if="${bookings.size() == 0}" class="no-history">
+        <p>No bookings found.</p>
+    </div>
+
+    <div>
+        <label>Filter:</label>
+        <select id="filterOption">
+            <option value="all">All</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
+        </select>
+    </div>
+
+    <div th:each="booking : ${bookings}" class="booking-card">
+        <h3>🚌 Bus ID: <span th:text="${booking.busId}"></span></h3>
+        <p>
+            <strong>Booking Date:</strong> <span th:text="${#dates.format(booking.bookingDate, 'dd-MM-yyyy HH:mm')}"></span><br>
+            <strong>Travel Date:</strong> <span th:text="${#dates.format(booking.travelDate, 'dd-MM-yyyy')}"></span><br>
+            <strong>Departure Time:</strong> <span th:text="${busMap[booking.id]?.departureTime}"></span><br>
+            <strong>Arrival Time:</strong> <span th:text="${busMap[booking.id]?.arrivalTime}"></span><br>
+            <strong>Total Paid:</strong> ₹<span th:text="${booking.totalAmount}"></span>
+        </p>
+
+        <h4>👤 Passenger List</h4>
+        <ul>
+            <li th:each="p : ${booking.passengers}">
+                👤 <strong th:text="${p.name}"></strong>,
+                Age: <span th:text="${p.age}"></span>,
+                Gender: <span th:text="${p.gender}"></span>,
+                Seat No: <span th:text="${p.seatNumber}"></span>,
+                Type: <span th:text="${p.seatType}"></span>
+            </li>
+        </ul>
+
+        <a class="btn" th:href="@{'/download-ticket/' + ${booking.id}}">📥 Download Ticket</a>
+        <a class="btn" th:href="@{'/book-again/' + ${booking.busId}}">🔁 Rebook This Trip</a>
+        <a class="btn danger" th:href="@{'/cancel-booking/' + ${booking.id}}" onclick="return confirm('Cancel this booking?')">❌ Cancel Booking</a>
+    </div>
+
+    <div>
+        <a th:if="${user.role == 'ADMIN'}" th:href="@{/admin/dashboard}">← Back to Admin Dashboard</a>
+        <a th:if="${user.role != 'ADMIN'}" th:href="@{/dashboard}">← Back to User Dashboard</a>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

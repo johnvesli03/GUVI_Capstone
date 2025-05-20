@@ -1,0 +1,137 @@
+
+/* 📝 Register Page - Beautiful, Responsive, Animated CSS */
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --accent: #f59e0b;
+    --background: #f3f4f6;
+    --white: #ffffff;
+    --text: #1f2937;
+    --gray: #6b7280;
+    --radius: 12px;
+    --shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    --transition: 0.3s ease;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--font);
+}
+
+body {
+    background: linear-gradient(to right, #c7d2fe, #e0e7ff);
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: fadeIn 0.8s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    animation: slideIn 0.6s ease;
+}
+
+h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 18px;
+    color: var(--gray);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius);
+    background: #f9fafb;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
+}
+
+button[type="submit"] {
+    width: 100%;
+    margin-top: 30px;
+    padding: 14px;
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3);
+}
+
+p {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--gray);
+}
+
+a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 25px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    input, button {
+        font-size: 15px;
+    }
+}

@@ -1,0 +1,153 @@
+
+/* 👤 User Profile - Wonderful, Responsive, Animated CSS */
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #1e40af;
+    --background: #f9fafb;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --text: #1f2937;
+    --radius: 12px;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --transition: 0.3s ease;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--font);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    animation: fadeIn 0.6s ease;
+}
+
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    animation: slideIn 0.7s ease;
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: var(--primary);
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar img {
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.profile-avatar input[type="file"] {
+    font-size: 14px;
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    color: var(--gray);
+    margin-top: 20px;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: var(--radius);
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    transition: var(--transition);
+    font-size: 16px;
+}
+
+form input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 14px;
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    color: var(--primary-dark);
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    button, input {
+        font-size: 15px;
+    }
+
+    .profile-avatar {
+        flex-direction: column;
+        text-align: center;
+    }
+}

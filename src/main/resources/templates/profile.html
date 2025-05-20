@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+
+<!-- Shared navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <h2>Your Profile</h2>
+
+    <div class="profile-avatar">
+        <img th:src="@{/images/default-avatar.png}" alt="User Avatar" width="120" height="120" />
+        <input type="file" name="profileImage" accept="image/*">
+    </div>
+
+    <form th:action="@{/profile/update}" method="post">
+        <label>Name</label>
+        <input type="text" name="name" th:value="${user.name}" required>
+
+        <label>Email</label>
+        <input type="email" name="email" th:value="${user.email}" readonly>
+
+        <label>Change Password</label>
+        <input type="password" name="newPassword" placeholder="New password (optional)">
+
+        <button type="submit">💾 Save Changes</button>
+    </form>
+
+    <div>
+        <a th:if="${user.role == 'ADMIN'}" th:href="@{/admin/dashboard}">← Back to Admin Dashboard</a>
+        <a th:if="${user.role != 'ADMIN'}" th:href="@{/dashboard}">← Back to User Dashboard</a>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<style>
+    .profile-avatar {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+</body>
+</html>

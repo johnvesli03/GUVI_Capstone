@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Bookings - Admin</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/booking_admin.css">
+    <style>
+        .filters {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <h2>📋 All Bookings (Admin View)</h2>
+
+    <div class="filters">
+        <label for="statusFilter">Filter by Status:</label>
+        <select onchange="filterStatus()" id="statusFilter">
+            <option value="all">All</option>
+            <option value="CONFIRMED">Confirmed</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="REFUNDED">Refunded</option>
+        </select>
+    </div>
+
+    <form method="post" action="/admin/updateBookings">
+        <table id="bookingTable" border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>USER</th>
+                <th>TRAVEL DATE</th>
+                <th>PASSENGERS</th>
+                <th>TOTAL PAID</th>
+                <th>STATUS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking : ${bookings}" th:data-status="${booking.status}">
+                <td>
+                    <b th:text="${userMap[booking.userId]?.name}">User Name</b><br>
+                    <small th:text="${userMap[booking.userId]?.email}">email@example.com</small>
+                </td>
+                <td th:text="${#dates.format(booking.travelDate, 'dd-MM-yyyy')}">12-05-2025</td>
+                <td>
+                    <ul>
+                        <li th:each="p : ${booking.passengers}">
+                            👤 <span th:text="${p.name}">Name</span> |
+                            Age: <span th:text="${p.age}">0</span> |
+                            Gender: <span th:text="${p.gender}">M</span> |
+                            Seat: <span th:text="${p.seatNumber}">0</span> (<span th:text="${p.seatType}">Seater</span>)
+                        </li>
+                    </ul>
+                </td>
+                <td>₹<span th:text="${booking.totalAmount}">0.00</span></td>
+                <td>
+                    <select name="statuses" th:name="'statuses[' + ${booking.id} + ']'">
+                        <option value="CONFIRMED" th:selected="${booking.status == 'CONFIRMED'}">CONFIRMED</option>
+                        <option value="CANCELLED" th:selected="${booking.status == 'CANCELLED'}">CANCELLED</option>
+                        <option value="REFUNDED" th:selected="${booking.status == 'REFUNDED'}">REFUNDED</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn">💾 Save Changes</button>
+    </form>
+
+    <button class="btn" onclick="exportTable()">📤 Export CSV</button>
+    <a href="/admin/dashboard">← Back to Dashboard</a>
+</div>
+
+<script>
+    function filterStatus() {
+        const status = document.getElementById("statusFilter").value;
+        const rows = document.querySelectorAll("#bookingTable tbody tr");
+
+        rows.forEach(row => {
+            const rowStatus = row.getAttribute("data-status");
+            row.style.display = (status === "all" || rowStatus === status) ? "" : "none";
+        });
+    }
+
+    function exportTable() {
+        const table = document.getElementById("bookingTable");
+        let csv = [];
+        const rows = table.querySelectorAll("tr");
+
+        for (let row of rows) {
+            let cols = row.querySelectorAll("td, th");
+            let rowData = Array.from(cols).map(col => `"${col.innerText.trim()}"`);
+            csv.push(rowData.join(","));
+        }
+
+        const csvBlob = new Blob([csv.join("\n")], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(csvBlob);
+        link.download = "bookings.csv";
+        link.click();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+    <h2>Welcome to the Dashboard</h2>
+    <p th:text="'Hello, ' + ${user.name} + '!'"></p>
+
+    <a th:href="@{/search}">Search Buses</a> |
+    <a th:href="@{/history}">Booking History</a> |
+    <a th:href="@{/logout}">Logout</a>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

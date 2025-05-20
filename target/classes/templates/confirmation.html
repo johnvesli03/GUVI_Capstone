@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Confirmation</title>
+    <style>
+        body { font-family: Arial; padding: 20px; text-align: center; }
+        .success { color: green; font-size: 22px; }
+        .ticket-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3399cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>🚌 Booking Confirmation</h1>
+<div th:if="${status == 'success'}">
+    <p class="success">Your ticket is successfully booked!</p>
+    <p><strong>Bus:</strong> <span th:text="${bus.operatorName}"></span></p>
+    <p><strong>From:</strong> <span th:text="${bus.from}"></span>
+        → <strong>To:</strong> <span th:text="${bus.to}"></span></p>
+    <p><strong>Travel Date:</strong> <span th:text="${booking.travelDate}"></span></p>
+    <p><strong>Total Paid:</strong> ₹<span th:text="${booking.totalAmount}"></span></p>
+
+    <a th:href="@{/download-ticket/{id}(id=${booking.id})}">
+        <button class="ticket-btn">🎟️ Download Ticket PDF</button>
+    </a>
+</div>
+
+<div th:if="${status != 'success'}">
+    <p style="color:red;">Booking failed. Please contact support.</p>
+</div>
+</body>
+</html>
